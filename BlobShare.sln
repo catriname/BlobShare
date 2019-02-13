@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28527.54
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobShare", "BlobShare\BlobShare.csproj", "{F3C151E9-B6E3-438B-86A7-07BA3BEF20F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3C151E9-B6E3-438B-86A7-07BA3BEF20F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C151E9-B6E3-438B-86A7-07BA3BEF20F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C151E9-B6E3-438B-86A7-07BA3BEF20F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C151E9-B6E3-438B-86A7-07BA3BEF20F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {767CF80A-E748-4CC1-8608-80678975110A}
+	EndGlobalSection
+EndGlobal

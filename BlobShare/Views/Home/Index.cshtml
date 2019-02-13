@@ -1,0 +1,125 @@
+﻿@model Microsoft.WindowsAzure.Storage.Blob.BlobResultSegment
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string json = "";
+    string searchData = "";
+
+    foreach (var item in Model.Results)
+    {
+        //removing the leading backslash prevents an empty top folder
+        json = json + "\"" + item.Uri.LocalPath.Remove(0, 1) + "\" ,";
+        if(item.Uri.Segments.Count() > 1) {
+        searchData = searchData + "{\"name\" : \"" + item.Uri.Segments.Last() + "\", \"location\" : \"" + item.Uri.Segments[2]  + "\", \"url\" : \"" + item.Uri.ToString() + "\"},";
+            }
+    }
+
+    json = json.Substring(0, json.Length - 1);
+
+    //we allow custom domains for our storage account, replacing default domain
+    searchData = searchData.Replace("https://storageaccount.blob.core.windows.net/","http://storage.mydomain.com/");
+    searchData = searchData.Substring(0, searchData.Length - 1);
+
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script src="https://rawgit.com/wenzhixin/font-awesome-zTree/master/dist/jquery.ztree.all-3.5.min.js"></script>
+
+<script language="JavaScript">
+    var paths = [@Html.Raw(json)];
+
+    function convertToHierarchy(paths /* array of array of strings */) {
+      // Build the node structure
+      const rootNode = {name:"root", children:[]}
+
+      for (let path of paths) {
+        buildNodeRecursive(rootNode, path.split('/'), 0);
+      }
+
+      return rootNode;
+    }
+
+    function buildNodeRecursive(node, path, idx) {
+      if (idx < path.length) {
+        let item = path[idx]
+        let dir = node.children.find(child => child.name == item)
+          if (!dir) {
+              //only last element has link
+              if (idx + 1 == path.length) {
+                  //replace all instances of a comma with forward slash
+                  url = "http://storage.mydomain.com/" + String(path).replace(/,/g, "/");
+                  node.children.push(dir = { name: item, url: url });
+              }
+              else {
+                  node.children.push(dir = { name: item, children: [] });
+              }
+        }
+        buildNodeRecursive(dir, path, idx + 1);
+      }
+    }
+
+    var zNodes = JSON.stringify(convertToHierarchy(paths).children, null, 2);
+    zNodes = JSON.parse(zNodes);
+
+    var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+    $(document).ready(function () {
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+    });
+
+    //begin search script
+    var data = [@Html.Raw(searchData)];
+    $(function () { // this will be called when the DOM is ready
+        $('#txt-search').html('');
+
+        $('#txt-search').keyup(function () {
+            var searchField = $(this).val();
+		    if(searchField === '')  {
+			    $('#filter-records').html('');
+			    return;
+		    }
+
+            var regex = new RegExp(searchField, "i");
+            var output = '<div class="searchBox">';
+            var output = '<h3 class="is-subtitle searchBox">Search Results: </h1>';
+            var count = 1;
+			    $.each(data, function(key, val){
+                    if ((val.url.search(regex) != -1) || (val.name.search(regex) != -1)) {
+                    output += '<div class="block has-border">';
+				    output += '<h4>' + val.location.replace("/","") + '</h4>';
+                    output += '<p>> <a href="' + val.url + '">' + val.url + '</a></p>';
+				    output += '</div>';
+			    }
+			    });
+			    output += '</div>';
+			    $('#filter-records').html(output);
+        });
+    });
+</script>
+
+
+<div class="container">
+    <div class="content">
+        <h1 class="is-title">Search Assets:</h1>
+        <form role="form">
+            <div class="field">
+                <div class="control">
+                    <input type="text" class="input" id="txt-search" placeholder="Begin Typing..." value="">
+                </div>
+            </div>
+        </form>
+        <div id="filter-records"></div>
+
+        <br />
+
+        <hr />
+        <h1 class="is-title">View Assets:</h1>
+
+        <ul id="tree" class="ztree"></ul>
+    </div>
+</div>

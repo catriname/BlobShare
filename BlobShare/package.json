@@ -1,0 +1,8 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "devDependencies": {
+    "bulma": "^0.7.1",
+    "bulma-accordion": "2.0.1"
+  }
+}

@@ -1,0 +1,12 @@
+﻿// 1. Import the initial variables from bulma node module
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
+@import url("https://use.typekit.net/ypt3ldx.css");
+
+$family-primary: "schnebel-sans-pro";
+$primary: #000000;
+$secondary: #EBEBEC;
+$link: #0a2240;
+
+// 6. Import the rest of Bulma
+@import "../../node_modules/bulma/bulma.sass";
