@@ -17,7 +17,7 @@
     json = json.Substring(0, json.Length - 1);
 
     //we allow custom domains for our storage account, replacing default domain
-    searchData = searchData.Replace("https://storageaccount.blob.core.windows.net/","http://storage.mydomain.com/");
+    //searchData = searchData.Replace("https://storageaccount.blob.core.windows.net/","http://custom.mydomain.com/");
     searchData = searchData.Substring(0, searchData.Length - 1);
 
 }
@@ -47,7 +47,7 @@
               //only last element has link
               if (idx + 1 == path.length) {
                   //replace all instances of a comma with forward slash
-                  url = "http://storage.mydomain.com/" + String(path).replace(/,/g, "/");
+                  url = "https://storageaccount.blob.core.windows.net/" + String(path).replace(/,/g, "/");
                   node.children.push(dir = { name: item, url: url });
               }
               else {
