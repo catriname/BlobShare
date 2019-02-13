@@ -2,17 +2,10 @@
 // More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
-    "outputFileName": "wwwroot/css/site.css",
-    "inputFiles": [
-      "wwwroot/css/theme.css",
-      "wwwroot/lib/font-awesome/css/font-awesome.css",
-      "wwwroot/css/style.css"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
       "wwwroot/css/theme.css",
+      "wwwroot/lib/font-awesome/css/font-awesome.css",
       "wwwroot/css/style.css"
     ],
     // Optionally specify minification options
@@ -20,13 +13,6 @@
       "enabled": true,
       "renameLocals": false
     }
-  },
-  {
-    "outputFileName": "wwwroot/js/site.js",
-    "inputFiles": [
-      "wwwroot/js/burger.js",
-      "wwwroot/js/script.js"
-    ]
   },
   {
     "outputFileName": "wwwroot/js/site.min.js",

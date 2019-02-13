@@ -21,7 +21,7 @@ namespace BlobShare.Controllers
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
 
             var client = storageAccount.CreateCloudBlobClient();
-            var container = client.GetContainerReference("myContainerName");
+            var container = client.GetContainerReference("myContainer");
 
             BlobContinuationToken continuationToken = null;
             var blobs = await container.ListBlobsSegmentedAsync(string.Empty, true, BlobListingDetails.All, null, continuationToken, null, null);
